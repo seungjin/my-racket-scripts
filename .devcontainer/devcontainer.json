@@ -1,12 +1,10 @@
 {
-	"name": "racket-devcontainer",
-	"build": {
-		"dockerfile": "Dockerfile",
-	},
+  "name": "racket-devcontainer",
+  "image": "racket/racket:8.13-full"
+  
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"magic-racket.lsp.enabled": true,
-		"magic-racket.general.racketPath": "xvfb-run racket",
 	},
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
