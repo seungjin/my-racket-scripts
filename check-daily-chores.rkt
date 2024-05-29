@@ -1,7 +1,10 @@
+#! /usr/bin/env racket
 #lang racket
 
 (require racket/system)
 (require gregor)
+
+(require "lib/numbers.rkt")
 
 (define output-str (with-output-to-string (λ () (system "systemctl --user show daily-chores.service"))))
 
@@ -13,7 +16,7 @@
 
 (define (time-str->epoch time-str)
   (define parsed_time (parse-datetime time-str "E yyyy-MM-dd HH:mm:ss"))
-  (->posix parsed_time)
+  (- (->posix parsed_time) (* 60 60 9)) ;; GMT+9
 )
 
 (define (run-daily-chores)
@@ -22,10 +25,10 @@
 )
 
 (define (foo val)
-  (define ago (- (time-str->epoch (remove-timestamp val)) (current-seconds)))
+  (define ago (- (current-seconds) (time-str->epoch (remove-timestamp val))))
   (if (> ago  (* 60 60 24))
       (run-daily-chores)
-      (println "nothing to do")
+      (println (format "Ran daiy-chores.service ~ahours ago nothing to do" (roundn (exact->inexact (/ ago 60 60)) 1)))
   )
 )
 
@@ -40,8 +43,8 @@
     
 )
 
-;; raco exe -o daily-chores-checker ./daily-chores.rkt
-
+;; raco exe -o ./bin/daily-chores-checker daily-chores-checker.rkt
+;; raco make daily-chores-checker.rkt
 
 
 
