@@ -12,7 +12,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-     && apt-get -y install --no-install-recommends $(cat packages | grep "^[^#;]")
+     && apt-get -y install --no-install-recommends $(cat packages.debian | grep "^[^#;]")
 
 ARG RACKET_VER=8.13
 ARG RACKET_INSTALLER="racket-minimal-${RACKET_VER}-x86_64-linux-cs.sh"
