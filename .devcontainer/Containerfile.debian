@@ -25,5 +25,9 @@ RUN if echo "$RACKET_INSTALLER_CHECKSUM $RACKET_INSTALLER" | sha256sum --check -
 
 RUN rm -fr ${RACKET_INSTALLER}
 
+RUN raco pkg install --auto racket-langserver
+
+
+
 
 
