@@ -17,10 +17,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && apt-get -y install --no-install-recommends $(cat packages | grep "^[^#;]")
 
 ## Install racket
-RUN wget https://download.racket-lang.org/releases/$RACKET_VER/installers/$RACKET_INSTALLER
-RUN if $(echo "$RACKET_INSTALLER_CHECKSUM $RACKET_INTSALLER" | sha256sum --check --status) || [ $? -eq 0  ]; \
-    then $(/bin/bash $RACKET_INSTALLER --unix-style --create-dir --dest /usr/local) ; fi
-RUN rm -fr $RACKET_INSTALLER
+RUN wget https://download.racket-lang.org/releases/$RACKET_VER/installers/${RACKET_INSTALLER}
+RUN if $(echo "${RACKET_INSTALLER_CHECKSUM} ${RACKET_INTSALLER}" | sha256sum --check --status) || [ $? -eq 0  ]; \
+    then $(/bin/bash ${RACKET_INSTALLER} --unix-style --create-dir --dest /usr/local) ; fi
+RUN rm -fr ${RACKET_INSTALLER}
 
 
 
