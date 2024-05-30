@@ -1,10 +1,12 @@
 FROM fedora:latest
 
+ARG DISTRO=fedora
+
 RUN dnf update -y
 RUN dnf groupinstall -y Development\ Tools
 
-COPY packages /tmp/
-RUN dnf install -y $(cat /tmp/packages | grep "^[^#;]")
+COPY packages.${DISTRO} /tmp/
+RUN dnf install -y $(cat /tmp/packages.${DISTRO} | grep "^[^#;]")
 
 RUN dnf clean all
 
