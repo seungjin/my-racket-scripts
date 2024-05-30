@@ -19,10 +19,9 @@ ARG RACKET_INSTALLER="racket-minimal-${RACKET_VER}-x86_64-linux-cs.sh"
 ARG RACKET_INSTALLER_CHECKSUM="f73a5a1f4c3d5ef77f401d1e2e3f3294ad7d9075ff6fe8a16489c1eee91cd81c"
 
 RUN wget https://download.racket-lang.org/releases/${RACKET_VER}/installers/${RACKET_INSTALLER}
-#RUN if $(echo "f73a5a1f4c3d5ef77f401d1e2e3f3294ad7d9075ff6fe8a16489c1eee91cd81c racket-minimal-8.13-x86_64-linux-cs.sh" | sha256sum --check --status) || [ $? -eq 0  ]; then /usr/bin/bash racket-minimal-8.13-x86_64-linux-cs.sh --unix-style --create-dir --dest /usr/local ; fi
+#RUN if echo "f73a5a1f4c3d5ef77f401d1e2e3f3294ad7d9075ff6fe8a16489c1eee91cd81c racket-minimal-8.13-x86_64-linux-cs.sh" | sha256sum --check --status || [ $? -eq 0  ]; then /usr/bin/bash racket-minimal-8.13-x86_64-linux-cs.sh --unix-style --create-dir --dest /usr/local ; fi
 
-RUN if $(echo "${RACKET_INSTALLER_CHECKSUM} ${RACKET_INTSALLER}" | sha256sum --check --status) || [ $? -eq 0  ]; \
-    then /usr/bin/bash $RACKET_INSTALLER --unix-style --create-dir --dest /usr/local ; fi
+RUN if echo "$RACKET_INSTALLER_CHECKSUM $RACKET_INSTALLER" | sha256sum --check --status || [ $? -eq 0  ]; then /usr/bin/bash $RACKET_INSTALLER --unix-style --create-dir --dest /usr/local ; fi
 
 RUN rm -fr ${RACKET_INSTALLER}
 
