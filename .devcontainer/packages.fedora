@@ -26,3 +26,4 @@ perl-core
 ostree-devel
 dbus-devel 
 pkgconf-pkg-config
+wget
