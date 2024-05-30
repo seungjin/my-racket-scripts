@@ -1,6 +1,6 @@
 {
   "name": "seungjin-devcontainer",
-  "image": "mcr.microsoft.com/vscode/devcontainers/rust:bullseye"
+  "image": "mcr.microsoft.com/vscode/devcontainers/rust:bookworm"
 
   // Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
