@@ -1,6 +1,6 @@
 {
-  "name": "racket-devcontainer",
-  "image": "racket/racket:8.13-full"
+  "name": "seungjin-devcontainer",
+  "image": "mcr.microsoft.com/vscode/devcontainers/rust:bullseye"
   
 	// Set *default* container specific settings.json values on container create.
 	"settings": {

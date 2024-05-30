@@ -4,7 +4,7 @@
 (require racket/system)
 (require gregor)
 
-(require "lib/numbers.rkt")
+(require "lib.rkt")
 
 (define output-str (with-output-to-string (λ () (system "systemctl --user show daily-chores.service"))))
 
