@@ -10,6 +10,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+     && apt-get -y install --no-install-recommends $(cat packages | grep "^[^#;]")
 
-
-
+## Install racket
+RUN wget https://download.racket-lang.org/installers/8.13/racket-8.13-x86_64-linux-cs.sh \
+    | sh racket-8.13-x86_64-linux-cs.sh  --unix-stype 
