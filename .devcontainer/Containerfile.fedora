@@ -1,0 +1,22 @@
+FROM fedora:latest
+
+RUN dnf update -y
+RUN dnf groupinstall -y Development\ Tools
+
+COPY packages /tmp/
+RUN dnf install -y $(cat /tmp/packages | grep "^[^#;]")
+
+RUN dnf clean all
+
+## RUST
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
+
+## RACKET
+ARG RACKET_VER=8.13
+ARG RACKET_INSTALLER="racket-minimal-${RACKET_VER}-x86_64-linux-cs.sh"
+ARG RACKET_INSTALLER_CHECKSUM="f73a5a1f4c3d5ef77f401d1e2e3f3294ad7d9075ff6fe8a16489c1eee91cd81c"
+
+RUN wget https://download.racket-lang.org/releases/${RACKET_VER}/installers/${RACKET_INSTALLER}
+RUN if echo "$RACKET_INSTALLER_CHECKSUM $RACKET_INSTALLER" | sha256sum --check --status || [ $? -eq 0  ]; then /usr/bin/bash $RACKET_INSTALLER --unix-style --create-dir --dest /usr/local ; fi
+RUN rm -fr ${RACKET_INSTALLER}
+
