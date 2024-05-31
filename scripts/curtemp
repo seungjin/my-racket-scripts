@@ -1,8 +1,13 @@
+#! /usr/bin/env racket
 #lang racket
 
 (require net/http-client json)
 (require json/format/simple)
 (require math/flonum)
+ (require racket/cmdline)
+
+
+(require "../lib.rkt")
 
 (define apikey (getenv "OPENWEATHERMAP_API"))
 
@@ -26,12 +31,17 @@
   (list (kel_to_cel temp_max) (kel_to_cel temp) (kel_to_cel temp_min))
   )
 
-(define (roundn k n)
-  (/ (round (* (expt 10 n) k)) (expt 10 n)))
-
 (define (kel_to_cel k)
   ;;  (/ (round (* 100 (- k 273.15))) 100))
   (roundn (- k 273.15) 2))
 
-(temp 'seoul)
+(define cityname (command-line
+   #:program "curtemp"
+   #:once-each
+
+   #:args (cityname) ; expect one command-line argument: <filename>
+   ; return the argument as a filename to compile
+   cityname))
+
+(temp cityname)
 
