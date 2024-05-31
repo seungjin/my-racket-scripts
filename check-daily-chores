@@ -28,20 +28,28 @@
   (define ago (- (current-seconds) (time-str->epoch (remove-timestamp val))))
   (if (> ago  (* 60 60 24))
       (run-daily-chores)
-      (println (format "Ran daiy-chores.service ~ahours ago nothing to do" (roundn (exact->inexact (/ ago 60 60)) 1)))
+      (println (format "Ran daiy-chores.service <~a>hours ago nothing to do" (roundn (exact->inexact (/ ago 60 60)) 1)))
   )
 )
+
+(define a '())
 
 (for ([e (in-list (string-split output-str "\n" #:trim? #t #:repeat? #t))])
   (define key (first (string-split e "=" #:trim? #t #:repeat? #f)))
   (define val (rest (string-split e "=" #:trim? #t #:repeat? #f)))
- 
-  (if (equal? key "ExecMainExitTimestamp")
-      (foo val)
-      '()
-  )
-    
+  (if (equal? key "ExecMainExitTimestamp") (set! a val) '())
 )
+
+(if (equal? a '()) (println "ExecMainExitTimestamp not found. Is it running now?") (foo a))
+
+
+
+    
+
+
+
+
+
 
 ;; raco exe -o ./bin/daily-chores-checker daily-chores-checker.rkt
 ;; raco make daily-chores-checker.rkt
