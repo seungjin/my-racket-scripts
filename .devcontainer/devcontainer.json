@@ -1,5 +1,5 @@
 {
-    "image": "ghcr.io/seungjin/codespace-devcon:latest",
+    "image": "ghcr.io/seungjin/codespace:debian",
     // "build": {
     //     "dockerfile": "./Containerfile.debian",
     //     "context": "."
